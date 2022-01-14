@@ -31,11 +31,11 @@ chrome-profiler-events*.json
 .history/*
 
 # misc
-.angular/cache
-.sass-cache
-connect.lock
-coverage
-libpeerconnection.log
+FrontendApp/.angular/cache
+FrontendApp/.sass-cache
+FrontendApp/connect.lock
+FrontendApp/coverage
+FrontendApp/libpeerconnection.log
 npm-debug.log
 yarn-error.log
 testem.log
