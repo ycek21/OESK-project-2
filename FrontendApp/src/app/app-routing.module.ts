@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BenchmarkComponent } from './modules/benchmark/benchmark.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', redirectTo: 'benchmark', pathMatch: 'full' },
+  { path: 'benchmark', component: BenchmarkComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

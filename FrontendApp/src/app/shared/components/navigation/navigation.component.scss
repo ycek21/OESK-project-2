@@ -1,0 +1,13 @@
+.bodyWrapper {
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.bodyWrapper__toolbar {
+  display: flex;
+  justify-content: center;
+}
+
+.bodyWrapper_toolbarElement {
+  padding: 10px;
+}
