@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BenchmarkComponent } from './benchmark.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: [BenchmarkComponent]
+  imports: [SharedModule],
+  declarations: [BenchmarkComponent],
 })
-export class BenchmarkModule { }
+export class BenchmarkModule {}

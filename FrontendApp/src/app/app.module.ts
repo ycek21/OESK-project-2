@@ -4,6 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
+import { BenchmarkModule } from './modules/benchmark/benchmark.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,6 +13,7 @@ import { SharedModule } from './shared/shared.module';
     AppRoutingModule,
     NoopAnimationsModule,
     SharedModule,
+    BenchmarkModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

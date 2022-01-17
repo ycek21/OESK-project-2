@@ -1,3 +1,25 @@
-<p>
-  benchmark works!
-</p>
+<div class="contentWrapper">
+  <div class="contentWrapper__formWrapper">
+    <form class="contentWrapper__form" [formGroup]="form">
+      <p>Wybierz ilość zdjęć oraz ich jakość</p>
+      <mat-form-field appearance="standard">
+        <mat-label>Ilość jakość do pobrania</mat-label>
+        <mat-select formControlName="size">
+          <mat-option *ngFor="let opt of minSizeOptions" [value]="opt">{{
+            opt.key
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Wybierz ilość zdjęć</mat-label>
+        <mat-select formControlName="quantity">
+          <mat-option *ngFor="let opt of photoQuantity" [value]="opt">{{
+            opt
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <button mat-raised-button (click)="saveForm()">Zapisz</button>
+  </div>
+</div>
