@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-// import { GoogleChartsModule } from 'angular-google-charts';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({

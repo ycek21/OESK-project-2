@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ChartType } from 'angular-google-charts';
+// import { ChartType } from 'angular-google-charts';
 import { Data } from 'src/app/modules/historic-data/models/dataModel';
+import { ChartType, ChartOptions, Chart } from 'chart.js';
 
 @Component({
   selector: 'app-chart',
@@ -8,31 +9,74 @@ import { Data } from 'src/app/modules/historic-data/models/dataModel';
   styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements OnInit {
-  title = 'Small quality of photo';
-  myType = ChartType.ScatterChart;
-  // data = [
-  //   ['Firefox', 45.0],
-  //   ['IE', 26.8],
-  //   ['Chrome', 12.8],
-  //   ['Safari', 8.5],
-  //   ['Opera', 6.2],
-  //   ['Others', 0.7],
-  // ];
-  columnNames = ['Number of photos', 'Time'];
-  options = {
-    vAxis: { title: 'Time [s]', minValue: 0, maxValue: 15 },
-    hAxis: { title: 'Number of photos', minValue: 0, maxValue: 15 },
-    legend: 'none',
-  };
-  width = 550;
-  height = 400;
   @Input() data: Data[] = [];
-  dataAsArray: any;
+  dataAsArray: any = [];
+
+  chart: any = [];
 
   constructor() {}
 
   ngOnInit() {
-    this.dataAsArray = this.data.map((x) => Array.from(Object.values(x)));
-    console.log(this.dataAsArray);
+    // this.dataAsArray = this.data.map((x) => Array.from(Object.values(x)));
+    // console.log(this.dataAsArray);
+    let mapedData = this.data.map(function (x) {
+      return { x: x.numberOfPhotos, y: x.time };
+    });
+    let mapedData2 = this.data.map(function (x) {
+      return { x: x.numberOfPhotos + 1, y: x.time + 1 };
+    });
+    console.log(mapedData);
+    this.chart = new Chart('canvas', {
+      type: 'scatter',
+      data: {
+        datasets: [
+          {
+            label: 'Pexels',
+            data: mapedData,
+            backgroundColor: 'rgb(147, 250, 165)',
+            pointRadius: 6,
+            pointHoverRadius: 8,
+          },
+          {
+            label: 'Unsplash',
+            data: mapedData2,
+            backgroundColor: 'rgba(0,10,220,0.5)',
+            pointRadius: 6,
+            pointHoverRadius: 8,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+          display: true,
+          text: 'Small quality of photos',
+          fontSize: 30,
+        },
+        scales: {
+          xAxes: [
+            {
+              type: 'linear',
+              position: 'bottom',
+            },
+            {
+              scaleLabel: {
+                display: true,
+                labelString: 'Number of photos',
+              },
+            },
+          ],
+          yAxes: [
+            {
+              scaleLabel: {
+                display: true,
+                labelString: 'Time [s]',
+              },
+            },
+          ],
+        },
+      },
+    });
   }
 }

@@ -1,12 +1,13 @@
 <div class="container">
-  <google-chart
-    [title]="title"
-    [type]="myType"
-    [data]="dataAsArray"
-    [options]="options"
-    [width]="width"
-    [height]="height"
-    [columns]="columnNames"
+  <!-- <div class="title__wrapper">
+    <div class="title__wrapper-style">Small quality of photo</div>
+  </div> -->
+  <div
+    class="chart-container"
+    style="position: relative; height: 40vh; width: 50vw"
   >
-  </google-chart>
+    <canvas height="40vh" width="80vw" id="canvas">
+      {{ chart }}
+    </canvas>
+  </div>
 </div>
