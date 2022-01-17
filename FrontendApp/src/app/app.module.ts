@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 // import { GoogleChartsModule } from 'angular-google-charts';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,8 +14,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     NoopAnimationsModule,
     HistoricDataModule,
+    SharedModule,
   ],
-  providers: [],
   exports: [],
   bootstrap: [AppComponent],
 })
