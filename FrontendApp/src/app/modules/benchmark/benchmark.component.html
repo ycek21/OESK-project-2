@@ -1,12 +1,11 @@
 <div class="contentWrapper">
   <div class="contentWrapper__formWrapper">
     <form class="contentWrapper__form" [formGroup]="form">
-      <p>Wybierz ilość zdjęć oraz ich jakość</p>
       <mat-form-field appearance="standard">
-        <mat-label>Ilość jakość do pobrania</mat-label>
-        <mat-select formControlName="size">
-          <mat-option *ngFor="let opt of minSizeOptions" [value]="opt">{{
-            opt.key
+        <mat-label>>Wybierz ilość zdjęć oraz ich jakość</mat-label>
+        <mat-select formControlName="quality">
+          <mat-option *ngFor="let opt of photoQuality" [value]="opt">{{
+            opt
           }}</mat-option>
         </mat-select>
       </mat-form-field>
