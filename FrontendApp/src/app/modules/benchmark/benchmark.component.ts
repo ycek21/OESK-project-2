@@ -5,6 +5,7 @@ import { PhotosService } from './services/photos.service';
 import { delay, switchMap } from 'rxjs/operators';
 import { forkJoin, Observable, of } from 'rxjs';
 import { UnsplashResponse } from './models/unsplash-response';
+import { HistoricData } from '../historic-data/models/historicData';
 
 @Component({
   selector: 'app-benchmark',
@@ -21,6 +22,7 @@ export class BenchmarkComponent implements OnInit {
   });
 
   pexelsPageNumber = 1;
+  historicData: HistoricData[] = [];
 
   constructor(private fb: FormBuilder, private photosService: PhotosService) {}
 
@@ -29,8 +31,8 @@ export class BenchmarkComponent implements OnInit {
   public saveForm(): void {
     const formValue = this.form.value;
 
-    this.getPexelsPhotos(formValue);
     this.getUnsplashPhotos(formValue);
+    this.getPexelsPhotos(formValue);
   }
 
   private getPexelsPhotos(formValue: BenchmarkForm): void {
@@ -57,14 +59,25 @@ export class BenchmarkComponent implements OnInit {
       .subscribe((x) => {
         const endTime = performance.now();
         const time = endTime - startTime;
+        console.log('time x :>> ', time);
+
+        const pexelsHistoricData: HistoricData = {
+          numberOfPhotos: numberOfPhotosToDownload,
+          quality: photosQuality,
+          time: time / 1000,
+          apiType: 'pexels',
+          createdAt: new Date(Date.now()),
+        };
+
+        this.historicData = [...this.historicData, pexelsHistoricData];
+        // console.log('historicData :>> ', this.historicData);
       });
   }
 
   private getUnsplashPhotos(formValue: BenchmarkForm) {
-    const startTime = performance.now();
-
     const photosQuality = formValue.quality;
     const numberOfPhotosToDownload = formValue.quantity;
+    const startTime = performance.now();
 
     this.photosService
       .getUnsplashPhotos(numberOfPhotosToDownload)
@@ -87,6 +100,22 @@ export class BenchmarkComponent implements OnInit {
         const endTime = performance.now();
 
         const time = endTime - startTime;
+        console.log('time :>> ', time);
+
+        const unsplashHistoricData: HistoricData = {
+          numberOfPhotos: numberOfPhotosToDownload,
+          quality: photosQuality,
+          time: time / 1000,
+          apiType: 'unsplash',
+          createdAt: new Date(Date.now()),
+        };
+        this.historicData = [...this.historicData, unsplashHistoricData];
       });
+  }
+
+  public resetHistoricDataTable(event: boolean) {
+    if (true) {
+      this.historicData = [];
+    }
   }
 }

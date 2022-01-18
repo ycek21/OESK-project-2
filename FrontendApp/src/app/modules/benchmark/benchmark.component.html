@@ -21,4 +21,9 @@
     </form>
     <button mat-raised-button (click)="saveForm()">Zapisz</button>
   </div>
+
+  <app-postHistoricData
+    [historicData]="historicData"
+    (deleteElementsFromHistoricData)="resetHistoricDataTable($event)"
+  ></app-postHistoricData>
 </div>

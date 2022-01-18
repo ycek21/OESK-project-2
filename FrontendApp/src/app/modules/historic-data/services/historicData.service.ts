@@ -26,4 +26,28 @@ export class HistoricDataService {
     const url = HISTORICDATA_URL + '/large';
     return this.http.get<HistoricData[]>(url);
   }
+
+  getDataForCertainQuality(quality: string): Observable<HistoricData[]> {
+    let queryParam = '';
+
+    if (quality === '1080p') {
+      queryParam = 'small';
+    } else if (quality === '4k') {
+      queryParam = 'medium';
+    } else if (quality === 'raw') {
+      queryParam = 'large';
+    }
+
+    const url = HISTORICDATA_URL + `/${queryParam}`;
+
+    return this.http.get<HistoricData[]>(url);
+  }
+
+  public postHistoricData(historicData: HistoricData) {
+    const url = HISTORICDATA_URL;
+
+    console.log('historicData :>> ', historicData);
+
+    return this.http.post(url, historicData);
+  }
 }
