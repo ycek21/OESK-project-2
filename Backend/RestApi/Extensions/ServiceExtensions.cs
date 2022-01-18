@@ -21,6 +21,6 @@ namespace RestApi.Extensions
                 services.AddDbContext<RepositoryContext>(opts =>
                     opts.UseSqlServer(configuration.GetConnectionString("sqlConnection"), b =>
                      b.MigrationsAssembly("Backend")));
-             
+
     }
 }

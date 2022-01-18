@@ -7,6 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { switchMap } from 'rxjs';
 import { HistoricData } from 'src/app/modules/historic-data/models/historicData';
 import { HistoricDataService } from 'src/app/modules/historic-data/services/historicData.service';
 
@@ -36,17 +37,36 @@ export class PostHistoricDataComponent implements OnInit, OnChanges {
 
       this.historicDataService
         .getDataForCertainQuality(chartType)
-        .subscribe((data: HistoricData[]) => {
-          console.log('data :>> ', data);
+        .pipe(
+          switchMap((x) => {
+            this.historicDataWithNewMeasurement = [...x, ...this.historicData];
+            console.log(
+              'this.historicDataWithNewMeasurement  :>> ',
+              this.historicDataWithNewMeasurement
+            );
 
-          this.historicDataWithNewMeasurement = [...data, ...this.historicData];
-
-          console.log(
-            'this.historicDataWithNewMeasurement :>> ',
-            this.historicDataWithNewMeasurement
-          );
+            return this.historicDataService.postHistoricData(
+              this.historicData[0]
+            );
+          })
+        )
+        .subscribe((result) => {
+          console.log('result :>> ', result);
+          this.deleteElementsFromHistoricData.emit(true);
         });
-      // this.deleteElementsFromHistoricData.emit(true);
+
+      // this.historicDataService
+      //   .getDataForCertainQuality(chartType)
+      //   .subscribe((data: HistoricData[]) => {
+      //     console.log('data :>> ', data);
+
+      //     this.historicDataWithNewMeasurement = [...data, ...this.historicData];
+
+      //     console.log(
+      //       'this.historicDataWithNewMeasurement :>> ',
+      //       this.historicDataWithNewMeasurement
+      //     );
+      //   });
     }
   }
 }
