@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 import { BenchmarkModule } from './modules/benchmark/benchmark.module';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -14,6 +14,7 @@ import { BenchmarkModule } from './modules/benchmark/benchmark.module';
     NoopAnimationsModule,
     SharedModule,
     BenchmarkModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
