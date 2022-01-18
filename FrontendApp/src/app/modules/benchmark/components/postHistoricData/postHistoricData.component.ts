@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { switchMap } from 'rxjs';
+import { forkJoin, Observable, switchMap } from 'rxjs';
 import { HistoricData } from 'src/app/modules/historic-data/models/historicData';
 import { HistoricDataService } from 'src/app/modules/historic-data/services/historicData.service';
 
@@ -40,14 +40,14 @@ export class PostHistoricDataComponent implements OnInit, OnChanges {
         .pipe(
           switchMap((x) => {
             this.historicDataWithNewMeasurement = [...x, ...this.historicData];
-            console.log(
-              'this.historicDataWithNewMeasurement  :>> ',
-              this.historicDataWithNewMeasurement
-            );
+            const postHistoricDataObservables: Observable<Object>[] = [];
 
-            return this.historicDataService.postHistoricData(
-              this.historicData[0]
-            );
+            this.historicData.forEach((row) => {
+              const observable = this.historicDataService.postHistoricData(row);
+              postHistoricDataObservables.push(observable);
+            });
+
+            return forkJoin(postHistoricDataObservables);
           })
         )
         .subscribe((result) => {
