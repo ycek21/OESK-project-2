@@ -1,8 +1,13 @@
+import { PageComponent } from './modules/historic-data/page/page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BenchmarkComponent } from './modules/benchmark/benchmark.component';
 
 const routes: Routes = [
+  {
+    path: 'historicData',
+    component: PageComponent,
+  },
   { path: '', redirectTo: 'benchmark', pathMatch: 'full' },
   { path: 'benchmark', component: BenchmarkComponent },
 ];

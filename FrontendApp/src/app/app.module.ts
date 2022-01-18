@@ -1,3 +1,4 @@
+import { HistoricDataModule } from './modules/historic-data/historic-data.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,11 +13,12 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     NoopAnimationsModule,
+    HistoricDataModule,
     SharedModule,
     BenchmarkModule,
     HttpClientModule,
   ],
-  providers: [],
+  exports: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
