@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 // import { ChartType } from 'angular-google-charts';
-import { Data } from 'src/app/modules/historic-data/models/dataModel';
+import { HistoricData } from 'src/app/modules/historic-data/models/historicData';
 import { ChartType, ChartOptions, Chart } from 'chart.js';
 
 @Component({
@@ -9,7 +9,7 @@ import { ChartType, ChartOptions, Chart } from 'chart.js';
   styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements OnInit {
-  @Input() data: Data[] = [];
+  @Input() data: HistoricData[] = [];
   dataAsArray: any = [];
 
   chart: any = [];
@@ -17,8 +17,6 @@ export class ChartComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    // this.dataAsArray = this.data.map((x) => Array.from(Object.values(x)));
-    // console.log(this.dataAsArray);
     let mapedData = this.data.map(function (x) {
       return { x: x.numberOfPhotos, y: x.time };
     });

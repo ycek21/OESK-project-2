@@ -1,5 +1,7 @@
+import { forkJoin } from 'rxjs';
+import { HistoricDataService } from './../services/historicData.service';
 import { Component, OnInit } from '@angular/core';
-import { Data } from '../models/dataModel';
+import { HistoricData } from '../models/historicData';
 
 @Component({
   selector: 'app-page',
@@ -7,25 +9,19 @@ import { Data } from '../models/dataModel';
   styleUrls: ['./page.component.scss'],
 })
 export class PageComponent implements OnInit {
-  dataSource: Data[] = [
-    {
-      numberOfPhotos: 1,
-      time: 30,
-    },
-    {
-      numberOfPhotos: 5,
-      time: 60,
-    },
-    {
-      numberOfPhotos: 1,
-      time: 10,
-    },
-    {
-      numberOfPhotos: 30,
-      time: 90,
-    },
-  ];
-  constructor() {}
+  dataSourceSmall: HistoricData[] = [];
+  dataSourceMedium: HistoricData[] = [];
+  dataSourceLarge: HistoricData[] = [];
+  constructor(private historicDataService: HistoricDataService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    let small = this.historicDataService.getdatawithSmallQuality();
+    let medium = this.historicDataService.getdatawithMediumQuality();
+    let large = this.historicDataService.getdatawithLargeQuality();
+    forkJoin([small, medium, large]).subscribe((results) => {
+      this.dataSourceSmall = results[0];
+      this.dataSourceMedium = results[1];
+      this.dataSourceLarge = results[2];
+    });
+  }
 }
