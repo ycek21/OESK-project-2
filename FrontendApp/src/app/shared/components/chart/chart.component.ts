@@ -25,7 +25,6 @@ export class ChartComponent implements OnInit {
     let mapedData2 = this.data.map(function (x) {
       return { x: x.numberOfPhotos + 1, y: x.time + 1 };
     });
-    console.log(mapedData);
     this.chart = new Chart('canvas', {
       type: 'scatter',
       data: {
