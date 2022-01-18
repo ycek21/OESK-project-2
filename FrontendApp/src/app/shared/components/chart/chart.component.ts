@@ -9,34 +9,53 @@ import { ChartType, ChartOptions, Chart } from 'chart.js';
   styleUrls: ['./chart.component.scss'],
 })
 export class ChartComponent implements OnInit {
-  @Input() data: HistoricData[] = [];
-  dataAsArray: any = [];
+  @Input() data: [HistoricData[], HistoricData[], HistoricData[]] = [
+    [],
+    [],
+    [],
+  ];
 
   chart: any = [];
 
   constructor() {}
 
   ngOnInit() {
-    let mapedData = this.data.map(function (x) {
+    // let mapedData = this.data.map(function (x) {
+    //   return { x: x.numberOfPhotos, y: x.time };
+    // });
+    // let mapedData2 = this.data.map(function (x) {
+    //   return { x: x.numberOfPhotos + 1, y: x.time + 1 };
+    // });
+  }
+  prepareData(data: HistoricData[]) {
+    const pexels = data.filter((x) => x.apiType === 'Pexels');
+    const unsplash = data.filter((x) => x.apiType === 'Unsplash');
+    let mapPexels = this.mapDataToScatterChart(pexels);
+    let mapUnsplash = this.mapDataToScatterChart(unsplash);
+    return [mapPexels, mapUnsplash];
+  }
+  mapDataToScatterChart(filteredData: HistoricData[]) {
+    return filteredData.map(function (x) {
       return { x: x.numberOfPhotos, y: x.time };
     });
-    let mapedData2 = this.data.map(function (x) {
-      return { x: x.numberOfPhotos + 1, y: x.time + 1 };
-    });
+  }
+  createChartWithSmallQuality() {
+    const preparedData = this.prepareData(this.data[0]);
+
     this.chart = new Chart('canvas', {
       type: 'scatter',
       data: {
         datasets: [
           {
             label: 'Pexels',
-            data: mapedData,
+            data: preparedData[0],
             backgroundColor: 'rgb(147, 250, 165)',
             pointRadius: 6,
             pointHoverRadius: 8,
           },
           {
             label: 'Unsplash',
-            data: mapedData2,
+            data: preparedData[1],
             backgroundColor: 'rgba(0,10,220,0.5)',
             pointRadius: 6,
             pointHoverRadius: 8,
