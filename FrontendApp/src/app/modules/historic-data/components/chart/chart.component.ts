@@ -1,7 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 // import { ChartType } from 'angular-google-charts';
 import { HistoricData } from 'src/app/modules/historic-data/models/historicData';
 import { ChartType, ChartOptions, Chart } from 'chart.js';
+import { HistoricDataService } from 'src/app/modules/historic-data/services/historicData.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-chart',
@@ -15,21 +17,39 @@ export class ChartComponent implements OnInit {
     [],
   ];
 
-  chart: any = [];
+  chartSmall: any = [];
+  chartMedium: any = [];
+  chartLarge: any = [];
 
-  constructor() {}
+  constructor(private historicDataService: HistoricDataService) {}
 
   ngOnInit() {
-    // let mapedData = this.data.map(function (x) {
-    //   return { x: x.numberOfPhotos, y: x.time };
-    // });
-    // let mapedData2 = this.data.map(function (x) {
-    //   return { x: x.numberOfPhotos + 1, y: x.time + 1 };
-    // });
+    let small = this.historicDataService.getdatawithSmallQuality();
+    let medium = this.historicDataService.getdatawithMediumQuality();
+    let large = this.historicDataService.getdatawithLargeQuality();
+    forkJoin([small, medium, large]).subscribe((results) => {
+      this.data = results;
+      console.log(this.data);
+      this.chartSmall = this.createChart(
+        this.data[0],
+        'canvas',
+        'Small quality of photos'
+      );
+      this.chartMedium = this.createChart(
+        this.data[1],
+        'canvas2',
+        'Medium quality of photos'
+      );
+      this.chartLarge = this.createChart(
+        this.data[2],
+        'canvas3',
+        'Large quality of photos'
+      );
+    });
   }
   prepareData(data: HistoricData[]) {
-    const pexels = data.filter((x) => x.apiType === 'Pexels');
-    const unsplash = data.filter((x) => x.apiType === 'Unsplash');
+    const pexels = data.filter((x) => x.apiType === 'pexels');
+    const unsplash = data.filter((x) => x.apiType === 'unsplash');
     let mapPexels = this.mapDataToScatterChart(pexels);
     let mapUnsplash = this.mapDataToScatterChart(unsplash);
     return [mapPexels, mapUnsplash];
@@ -39,10 +59,9 @@ export class ChartComponent implements OnInit {
       return { x: x.numberOfPhotos, y: x.time };
     });
   }
-  createChartWithSmallQuality() {
-    const preparedData = this.prepareData(this.data[0]);
-
-    this.chart = new Chart('canvas', {
+  createChart(data: HistoricData[], chartId: string, title: string) {
+    const preparedData = this.prepareData(data);
+    return new Chart(chartId, {
       type: 'scatter',
       data: {
         datasets: [
@@ -67,7 +86,7 @@ export class ChartComponent implements OnInit {
         maintainAspectRatio: false,
         title: {
           display: true,
-          text: 'Small quality of photos',
+          text: title,
           fontSize: 30,
         },
         scales: {

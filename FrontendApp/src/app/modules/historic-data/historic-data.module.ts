@@ -1,11 +1,11 @@
-// import { ChartComponent } from '../../chart/chart.component';
+import { ChartComponent } from './components/chart/chart.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PageComponent } from './page/page.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
-  imports: [CommonModule, SharedModule],
-  declarations: [PageComponent],
+  imports: [CommonModule, ChartsModule],
+  declarations: [PageComponent, ChartComponent],
 })
 export class HistoricDataModule {}

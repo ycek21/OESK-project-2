@@ -9,18 +9,8 @@ import { HistoricData } from '../models/historicData';
   styleUrls: ['./page.component.scss'],
 })
 export class PageComponent implements OnInit {
-  // dataSourceSmall: HistoricData[] = [];
-  // dataSourceMedium: HistoricData[] = [];
-  // dataSourceLarge: HistoricData[] = [];
-  dataSource: [HistoricData[], HistoricData[], HistoricData[]] = [[], [], []];
-  constructor(private historicDataService: HistoricDataService) {}
+  // dataSource: [HistoricData[], HistoricData[], HistoricData[]] = [[], [], []];
+  constructor() {}
 
-  ngOnInit() {
-    let small = this.historicDataService.getdatawithSmallQuality();
-    let medium = this.historicDataService.getdatawithMediumQuality();
-    let large = this.historicDataService.getdatawithLargeQuality();
-    forkJoin([small, medium, large]).subscribe((results) => {
-      this.dataSource = results;
-    });
-  }
+  ngOnInit() {}
 }
