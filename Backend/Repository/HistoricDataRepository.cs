@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Contracts;
@@ -16,6 +17,18 @@ namespace Repository
         public async Task<List<HistoricData>> GetAllHistoricDataAsync(bool trackChanges)
         {
             return await FindAll(trackChanges).ToListAsync();
+        }
+        public async Task<List<HistoricData>> GetSmallQualityHistoricDataAsync(bool trackChanges)
+        {
+            return await FindAll(trackChanges).Where(d => d.Quality =="1080p") .ToListAsync();
+        }
+         public async Task<List<HistoricData>> GetMediumQualityHistoricDataAsync(bool trackChanges)
+        {
+            return await FindAll(trackChanges).Where(d => d.Quality =="4k") .ToListAsync();
+        }
+         public async Task<List<HistoricData>> GetLargeQualityHistoricDataAsync(bool trackChanges)
+        {
+            return await FindAll(trackChanges).Where(d => d.Quality =="raw") .ToListAsync();
         }
     }
 }

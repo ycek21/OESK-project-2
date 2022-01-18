@@ -19,8 +19,26 @@ namespace RestApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllHistoricData()
         {
-            var historicData=_repository.HistoricData.GetAllHistoricDataAsync(false);
-            return Ok(historicData.Result);
+            var historicData=await _repository.HistoricData.GetAllHistoricDataAsync(false);
+            return Ok(historicData);
+        }
+        [HttpGet("small")]
+        public async Task<IActionResult> GetSmallQualityHistoricData()
+        {
+            var historicData=await _repository.HistoricData.GetSmallQualityHistoricDataAsync(false);
+            return Ok(historicData);
+        }
+        [HttpGet("medium")]
+        public async Task<IActionResult> GetMediumQualityHistoricData()
+        {
+            var historicData=await _repository.HistoricData.GetMediumQualityHistoricDataAsync(false);
+            return Ok(historicData);
+        }
+        [HttpGet("large")]
+        public async Task<IActionResult> GetLargeQualityHistoricData()
+        {
+            var historicData=await _repository.HistoricData.GetLargeQualityHistoricDataAsync(false);
+            return Ok(historicData);
         }
         [HttpPost]
          public async Task<IActionResult> PostData([FromBody] HistoricData data)
