@@ -9,9 +9,10 @@ import { HistoricData } from '../models/historicData';
   styleUrls: ['./page.component.scss'],
 })
 export class PageComponent implements OnInit {
-  dataSourceSmall: HistoricData[] = [];
-  dataSourceMedium: HistoricData[] = [];
-  dataSourceLarge: HistoricData[] = [];
+  // dataSourceSmall: HistoricData[] = [];
+  // dataSourceMedium: HistoricData[] = [];
+  // dataSourceLarge: HistoricData[] = [];
+  dataSource: [HistoricData[], HistoricData[], HistoricData[]] = [[], [], []];
   constructor(private historicDataService: HistoricDataService) {}
 
   ngOnInit() {
@@ -19,9 +20,7 @@ export class PageComponent implements OnInit {
     let medium = this.historicDataService.getdatawithMediumQuality();
     let large = this.historicDataService.getdatawithLargeQuality();
     forkJoin([small, medium, large]).subscribe((results) => {
-      this.dataSourceSmall = results[0];
-      this.dataSourceMedium = results[1];
-      this.dataSourceLarge = results[2];
+      this.dataSource = results;
     });
   }
 }
