@@ -54,19 +54,6 @@ export class PostHistoricDataComponent implements OnInit, OnChanges {
           console.log('result :>> ', result);
           this.deleteElementsFromHistoricData.emit(true);
         });
-
-      // this.historicDataService
-      //   .getDataForCertainQuality(chartType)
-      //   .subscribe((data: HistoricData[]) => {
-      //     console.log('data :>> ', data);
-
-      //     this.historicDataWithNewMeasurement = [...data, ...this.historicData];
-
-      //     console.log(
-      //       'this.historicDataWithNewMeasurement :>> ',
-      //       this.historicDataWithNewMeasurement
-      //     );
-      //   });
     }
   }
 }

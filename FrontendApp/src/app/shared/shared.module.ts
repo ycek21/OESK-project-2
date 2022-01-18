@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedChartComponent } from './components/shared-chart/shared-chart.component';
 // import { ChartsModule } from 'ng2-charts';
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     ReactiveFormsModule,
   ],
-  declarations: [NavigationComponent],
+  declarations: [NavigationComponent, SharedChartComponent],
   exports: [
     MatToolbarModule,
     NavigationComponent,
@@ -28,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     CommonModule,
     ReactiveFormsModule,
+    SharedChartComponent,
   ],
 })
 export class SharedModule {}
