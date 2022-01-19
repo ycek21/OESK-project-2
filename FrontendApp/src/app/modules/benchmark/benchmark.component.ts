@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BenchmarkForm } from './models/benchmark-form';
 import { PhotosService } from './services/photos.service';
-import { delay, switchMap } from 'rxjs/operators';
-import { forkJoin, Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { forkJoin, Observable } from 'rxjs';
 import { UnsplashResponse } from './models/unsplash-response';
 import { HistoricData } from '../historic-data/models/historicData';
 
@@ -12,7 +12,7 @@ import { HistoricData } from '../historic-data/models/historicData';
   templateUrl: './benchmark.component.html',
   styleUrls: ['./benchmark.component.scss'],
 })
-export class BenchmarkComponent implements OnInit {
+export class BenchmarkComponent {
   photoQuality: string[] = ['1080P', '4K', 'Raw'];
   photoQuantity: number[] = [2, 5, 20];
 
@@ -26,13 +26,11 @@ export class BenchmarkComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private photosService: PhotosService) {}
 
-  ngOnInit() {}
-
   public saveForm(): void {
     const formValue = this.form.value;
 
-    this.getUnsplashPhotos(formValue);
     this.getPexelsPhotos(formValue);
+    this.getUnsplashPhotos(formValue);
   }
 
   private getPexelsPhotos(formValue: BenchmarkForm): void {
@@ -59,7 +57,8 @@ export class BenchmarkComponent implements OnInit {
       .subscribe((x) => {
         const endTime = performance.now();
         const time = endTime - startTime;
-        console.log('time x :>> ', time);
+
+        console.log('pexelsTime :>> ', time);
 
         const pexelsHistoricData: HistoricData = {
           numberOfPhotos: numberOfPhotosToDownload,
@@ -70,7 +69,6 @@ export class BenchmarkComponent implements OnInit {
         };
 
         this.historicData = [...this.historicData, pexelsHistoricData];
-        // console.log('historicData :>> ', this.historicData);
       });
   }
 
@@ -100,7 +98,8 @@ export class BenchmarkComponent implements OnInit {
         const endTime = performance.now();
 
         const time = endTime - startTime;
-        console.log('time :>> ', time);
+
+        console.log('UnsplashTime :>> ', time);
 
         const unsplashHistoricData: HistoricData = {
           numberOfPhotos: numberOfPhotosToDownload,
@@ -114,7 +113,7 @@ export class BenchmarkComponent implements OnInit {
   }
 
   public resetHistoricDataTable(event: boolean) {
-    if (true) {
+    if (event === true) {
       this.historicData = [];
     }
   }

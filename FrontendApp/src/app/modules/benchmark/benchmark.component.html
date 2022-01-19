@@ -26,6 +26,7 @@
           mat-raised-button
           (click)="saveForm()"
           class="contentWrapper__submitButton"
+          [disabled]="form.invalid"
         >
           Zapisz
         </button>

@@ -28,11 +28,11 @@ export class PostHistoricDataComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes :>> ', changes);
-    if (this.historicData.length === 2) {
-      console.log('jest dwa :>> ');
-      console.log('historicData :>> ', this.historicData);
+    this.prepareDataForChartsAndPostData();
+  }
 
+  private prepareDataForChartsAndPostData() {
+    if (this.historicData.length === 2) {
       const chartType = this.historicData[0].quality;
 
       this.historicDataService
@@ -50,8 +50,7 @@ export class PostHistoricDataComponent implements OnInit, OnChanges {
             return forkJoin(postHistoricDataObservables);
           })
         )
-        .subscribe((result) => {
-          console.log('result :>> ', result);
+        .subscribe(() => {
           this.deleteElementsFromHistoricData.emit(true);
         });
     }

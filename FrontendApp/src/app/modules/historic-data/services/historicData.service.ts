@@ -33,9 +33,6 @@ export class HistoricDataService {
 
   public postHistoricData(historicData: HistoricData) {
     const url = HISTORICDATA_URL;
-
-    console.log('historicData :>> ', historicData);
-
     return this.http.post(url, historicData);
   }
 }
