@@ -14,18 +14,6 @@ export class HistoricDataService {
     const url = HISTORICDATA_URL;
     return this.http.get<HistoricData[]>(url);
   }
-  getdatawithSmallQuality(): Observable<HistoricData[]> {
-    const url = HISTORICDATA_URL + '/small';
-    return this.http.get<HistoricData[]>(url);
-  }
-  getdatawithMediumQuality(): Observable<HistoricData[]> {
-    const url = HISTORICDATA_URL + '/medium';
-    return this.http.get<HistoricData[]>(url);
-  }
-  getdatawithLargeQuality(): Observable<HistoricData[]> {
-    const url = HISTORICDATA_URL + '/large';
-    return this.http.get<HistoricData[]>(url);
-  }
 
   getDataForCertainQuality(quality: string): Observable<HistoricData[]> {
     let queryParam = '';

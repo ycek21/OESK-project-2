@@ -24,27 +24,14 @@ export class ChartComponent implements OnInit {
   constructor(private historicDataService: HistoricDataService) {}
 
   ngOnInit() {
-    let small = this.historicDataService.getdatawithSmallQuality();
-    let medium = this.historicDataService.getdatawithMediumQuality();
-    let large = this.historicDataService.getdatawithLargeQuality();
+    let small = this.historicDataService.getDataForCertainQuality('1080p');
+    let medium = this.historicDataService.getDataForCertainQuality('4k');
+    let large = this.historicDataService.getDataForCertainQuality('raw');
     forkJoin([small, medium, large]).subscribe((results) => {
       this.data = results;
-      console.log(this.data);
-      this.chartSmall = this.createChart(
-        this.data[0],
-        'canvas',
-        'Small quality of photos'
-      );
-      this.chartMedium = this.createChart(
-        this.data[1],
-        'canvas2',
-        'Medium quality of photos'
-      );
-      this.chartLarge = this.createChart(
-        this.data[2],
-        'canvas3',
-        'Large quality of photos'
-      );
+      this.chartSmall = this.createChart(this.data[0], 'canvas', '1080p');
+      this.chartMedium = this.createChart(this.data[1], 'canvas2', '4K');
+      this.chartLarge = this.createChart(this.data[2], 'canvas3', 'Raw');
     });
   }
   prepareData(data: HistoricData[]) {
