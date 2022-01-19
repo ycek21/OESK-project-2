@@ -13,7 +13,7 @@ import { HistoricData } from '../historic-data/models/historicData';
   styleUrls: ['./benchmark.component.scss'],
 })
 export class BenchmarkComponent implements OnInit {
-  photoQuality: string[] = ['1080p', '4k', 'raw'];
+  photoQuality: string[] = ['1080P', '4K', 'Raw'];
   photoQuantity: number[] = [2, 5, 20];
 
   form: FormGroup = this.fb.group({

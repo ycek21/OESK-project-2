@@ -6,8 +6,15 @@
 .bodyWrapper__toolbar {
   display: flex;
   justify-content: center;
+  padding: 0;
+  height: 100px;
 }
 
-.bodyWrapper_toolbarElement {
-  padding: 10px;
+.bodyWrapper__matNavList {
+  display: flex;
+  justify-content: center;
+}
+
+.bodyWrapper_matNavListElement {
+  font-size: 1.5625rem;
 }

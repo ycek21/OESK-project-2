@@ -1,11 +1,17 @@
 <div class="bodyWrapper">
   <mat-toolbar class="bodyWrapper__toolbar">
-    <h1 class="bodyWrapper_toolbarElement" routerLink="/benchmark">
-      Benchmark
-    </h1>
-    <h1 class="bodyWrapper_toolbarElement" routerLink="/historicData">
-      Historic data
-    </h1>
+    <mat-nav-list class="bodyWrapper__matNavList">
+      <a mat-list-item href="/benchmark" class="bodyWrapper_matNavListElement">
+        Benchmark
+      </a>
+      <a
+        mat-list-item
+        href="/historicData"
+        class="bodyWrapper_matNavListElement"
+      >
+        Historic data
+      </a>
+    </mat-nav-list>
   </mat-toolbar>
   <router-outlet></router-outlet>
 </div>
