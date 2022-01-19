@@ -20,6 +20,7 @@ export class PostHistoricDataComponent implements OnInit, OnChanges {
   @Input() historicData: HistoricData[] = [];
   @Output() deleteElementsFromHistoricData: EventEmitter<boolean> =
     new EventEmitter();
+  chartType: string = '';
 
   historicDataWithNewMeasurement: HistoricData[] = [];
 
@@ -33,10 +34,10 @@ export class PostHistoricDataComponent implements OnInit, OnChanges {
 
   private prepareDataForChartsAndPostData() {
     if (this.historicData.length === 2) {
-      const chartType = this.historicData[0].quality;
+      this.chartType = this.historicData[0].quality;
 
       this.historicDataService
-        .getDataForCertainQuality(chartType)
+        .getDataForCertainQuality(this.chartType)
         .pipe(
           switchMap((x) => {
             this.historicDataWithNewMeasurement = [...x, ...this.historicData];

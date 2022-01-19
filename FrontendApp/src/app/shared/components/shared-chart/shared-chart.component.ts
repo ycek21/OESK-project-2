@@ -15,12 +15,13 @@ import { HistoricData } from 'src/app/modules/historic-data/models/historicData'
 })
 export class SharedChartComponent implements OnInit, OnChanges {
   @Input() dataForChart: HistoricData[] = [];
+  @Input() chartType: string = '';
   chart: any = [];
   constructor() {}
 
   ngOnInit() {}
   ngOnChanges(changes: SimpleChanges): void {
-    this.createChart(this.dataForChart, 'canvas', 'Results');
+    this.createChart(this.dataForChart, 'canvas', this.chartType);
   }
   seperateDate(data: HistoricData[]) {
     let newData = data.slice(1).slice(-2);
@@ -84,6 +85,7 @@ export class SharedChartComponent implements OnInit, OnChanges {
           display: true,
           text: title,
           fontSize: 30,
+          fontColor: 'black',
         },
         scales: {
           xAxes: [
