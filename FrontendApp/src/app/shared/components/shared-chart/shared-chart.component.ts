@@ -20,17 +20,11 @@ export class SharedChartComponent implements OnInit, OnChanges {
 
   ngOnInit() {}
   ngOnChanges(changes: SimpleChanges): void {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    console.log('this.dataForChart :>> ', this.dataForChart);
     this.createChart(this.dataForChart, 'canvas', 'Results');
   }
   seperateDate(data: HistoricData[]) {
-    console.log(data);
     let newData = data.slice(1).slice(-2);
     let oldData = data.slice(0, -2);
-    console.log(newData);
-    console.log(oldData);
     return [oldData, newData];
   }
   prepareData(data: HistoricData[]) {
@@ -49,7 +43,6 @@ export class SharedChartComponent implements OnInit, OnChanges {
     const seperatedData = this.seperateDate(data);
     const preparedDataOld = this.prepareData(seperatedData[0]);
     const preparedDataNew = this.prepareData(seperatedData[1]);
-
     return new Chart(chartId, {
       type: 'scatter',
       data: {
