@@ -35,9 +35,9 @@ export class PhotosService {
   }
 
   public getPhoto(url: string, size: string) {
-    if (size === '1080p') {
+    if (size === '1080P') {
       url += fullHdQuery;
-    } else if (size === '4k') {
+    } else if (size === '4K') {
       url += fourKQuery;
     }
 

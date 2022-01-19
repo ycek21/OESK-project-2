@@ -20,6 +20,7 @@ export class PostHistoricDataComponent implements OnInit, OnChanges {
   @Input() historicData: HistoricData[] = [];
   @Output() deleteElementsFromHistoricData: EventEmitter<boolean> =
     new EventEmitter();
+  chartType: string = '';
 
   historicDataWithNewMeasurement: HistoricData[] = [];
 
@@ -28,15 +29,15 @@ export class PostHistoricDataComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes :>> ', changes);
-    if (this.historicData.length === 2) {
-      console.log('jest dwa :>> ');
-      console.log('historicData :>> ', this.historicData);
+    this.prepareDataForChartsAndPostData();
+  }
 
-      const chartType = this.historicData[0].quality;
+  private prepareDataForChartsAndPostData() {
+    if (this.historicData.length === 2) {
+      this.chartType = this.historicData[0].quality;
 
       this.historicDataService
-        .getDataForCertainQuality(chartType)
+        .getDataForCertainQuality(this.chartType)
         .pipe(
           switchMap((x) => {
             this.historicDataWithNewMeasurement = [...x, ...this.historicData];
@@ -50,8 +51,7 @@ export class PostHistoricDataComponent implements OnInit, OnChanges {
             return forkJoin(postHistoricDataObservables);
           })
         )
-        .subscribe((result) => {
-          console.log('result :>> ', result);
+        .subscribe(() => {
           this.deleteElementsFromHistoricData.emit(true);
         });
     }

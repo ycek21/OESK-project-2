@@ -9,7 +9,6 @@ import { HistoricData } from '../models/historicData';
   styleUrls: ['./page.component.scss'],
 })
 export class PageComponent implements OnInit {
-  // dataSource: [HistoricData[], HistoricData[], HistoricData[]] = [[], [], []];
   constructor() {}
 
   ngOnInit() {}
