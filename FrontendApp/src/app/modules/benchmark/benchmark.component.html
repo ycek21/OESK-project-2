@@ -1,0 +1,29 @@
+<div class="contentWrapper">
+  <div class="contentWrapper__formWrapper">
+    <form class="contentWrapper__form" [formGroup]="form">
+      <mat-form-field appearance="standard">
+        <mat-label>>Wybierz ilość zdjęć oraz ich jakość</mat-label>
+        <mat-select formControlName="quality">
+          <mat-option *ngFor="let opt of photoQuality" [value]="opt">{{
+            opt
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Wybierz ilość zdjęć</mat-label>
+        <mat-select formControlName="quantity">
+          <mat-option *ngFor="let opt of photoQuantity" [value]="opt">{{
+            opt
+          }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+    <button mat-raised-button (click)="saveForm()">Zapisz</button>
+  </div>
+
+  <app-postHistoricData
+    [historicData]="historicData"
+    (deleteElementsFromHistoricData)="resetHistoricDataTable($event)"
+  ></app-postHistoricData>
+</div>
