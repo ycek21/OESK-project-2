@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import {
   Component,
   Input,
@@ -17,7 +18,7 @@ export class SharedChartComponent implements OnInit, OnChanges {
   @Input() dataForChart: HistoricData[] = [];
   @Input() chartType: string = '';
   chart: any = [];
-  constructor() {}
+  constructor(private datePipe: DatePipe) {}
 
   ngOnInit() {}
   ngOnChanges(changes: SimpleChanges): void {
@@ -108,6 +109,22 @@ export class SharedChartComponent implements OnInit, OnChanges {
               },
             },
           ],
+        },
+        tooltips: {
+          callbacks: {
+            afterBody: (t, d) => {
+              let founded = data.find(
+                (x) =>
+                  x.numberOfPhotos === t[0].xLabel && x.time === t[0].yLabel
+              );
+              return (
+                this.datePipe.transform(
+                  founded?.createdAt.toString(),
+                  'dd.MM.yyyy h:mm:ss a'
+                ) || ''
+              );
+            },
+          },
         },
       },
     });

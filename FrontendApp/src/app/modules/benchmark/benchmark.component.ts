@@ -58,8 +58,6 @@ export class BenchmarkComponent {
         const endTime = performance.now();
         const time = endTime - startTime;
 
-        console.log('pexelsTime :>> ', time);
-
         const pexelsHistoricData: HistoricData = {
           numberOfPhotos: numberOfPhotosToDownload,
           quality: photosQuality,
@@ -98,8 +96,6 @@ export class BenchmarkComponent {
         const endTime = performance.now();
 
         const time = endTime - startTime;
-
-        console.log('UnsplashTime :>> ', time);
 
         const unsplashHistoricData: HistoricData = {
           numberOfPhotos: numberOfPhotosToDownload,

@@ -4,6 +4,7 @@ import { HistoricData } from 'src/app/modules/historic-data/models/historicData'
 import { ChartType, ChartOptions, Chart } from 'chart.js';
 import { HistoricDataService } from 'src/app/modules/historic-data/services/historicData.service';
 import { forkJoin } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-chart',
@@ -21,7 +22,10 @@ export class ChartComponent implements OnInit {
   chartMedium: any = [];
   chartLarge: any = [];
 
-  constructor(private historicDataService: HistoricDataService) {}
+  constructor(
+    private historicDataService: HistoricDataService,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit() {
     let small = this.historicDataService.getDataForCertainQuality('1080p');
@@ -43,7 +47,7 @@ export class ChartComponent implements OnInit {
   }
   mapDataToScatterChart(filteredData: HistoricData[]) {
     return filteredData.map(function (x) {
-      return { x: x.numberOfPhotos, y: x.time };
+      return { x: x.numberOfPhotos, y: x.time, z: x.createdAt };
     });
   }
   createChart(data: HistoricData[], chartId: string, title: string) {
@@ -97,6 +101,22 @@ export class ChartComponent implements OnInit {
               },
             },
           ],
+        },
+        tooltips: {
+          callbacks: {
+            afterBody: (t, d) => {
+              let founded = data.find(
+                (x) =>
+                  x.numberOfPhotos === t[0].xLabel && x.time === t[0].yLabel
+              );
+              return (
+                this.datePipe.transform(
+                  founded?.createdAt.toString(),
+                  'dd.MM.yyyy h:mm:ss a'
+                ) || ''
+              );
+            },
+          },
         },
       },
     });
